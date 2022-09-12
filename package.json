@@ -1,0 +1,32 @@
+{
+  "name": "401-whiteboard-backend",
+  "version": "1.0.0",
+  "description": "401 whiteboard backend lab04",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shaima-Alkhateeb/401-whiteboard-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shaima-Alkhateeb/401-whiteboard-backend/issues"
+  },
+  "homepage": "https://github.com/Shaima-Alkhateeb/401-whiteboard-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "pg": "^8.8.0",
+    "sequelize": "^6.21.6"
+  },
+  "devDependencies": {
+    "jest": "^29.0.3",
+    "supertest": "^6.2.4"
+  }
+}
