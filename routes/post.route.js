@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
+// jest.setTimeout(5000);
 
 const { Post } = require('../models/index');
 

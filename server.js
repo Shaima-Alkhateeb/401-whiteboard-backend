@@ -29,6 +29,7 @@ function start(port) {
 }
 
 module.exports = {
-  app, // app: app
-  start // start: start
+  start, // start: start
+  app // app: app
+
 };
