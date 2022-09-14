@@ -3,7 +3,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const post = require('./post.model');
 
-const POSTGRES_URL = process.env.HEROKU_POSTGRESQL_MAUVE_URL || process.env.DATABASE_URL;
+// const POSTGRES_URL = process.env.HEROKU_POSTGRESQL_MAUVE_URL || process.env.DATABASE_URL;
 
 // // ssl
 // const sequelizeOption = {
@@ -16,7 +16,11 @@ const POSTGRES_URL = process.env.HEROKU_POSTGRESQL_MAUVE_URL || process.env.DATA
 // };
 
 // let sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);
-let sequelize = new Sequelize(POSTGRES_URL);
+// let sequelize = new Sequelize(POSTGRES_URL);
+let sequelize = new Sequelize('shaima', 'shaima', '0000', {
+  host: 'localhost',
+  dialect: 'postgres'
+});
 
 module.exports = {
   db: sequelize,
