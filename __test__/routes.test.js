@@ -3,9 +3,17 @@
 const supertest = require('supertest');
 const server = require('../server');
 const request = supertest(server.app);
+const { db } = require('../models/index');
 // jest.setTimeout(5000);
 // jest.testFakeTimers('legacy');
 // jest.useRealTimers();
+
+beforeAll(async () => {
+  await db.sync();
+});
+afterAll(async () => {
+  await db.drop();
+});
 
 describe('Test the returned data for each REST route', () => {
   it('All post', async () => {
@@ -23,10 +31,13 @@ describe('Test the returned data for each REST route', () => {
     // jest.setTimeout(10000);
     // jest.useFakeTimers('legacy');
     // jest.setTimeout(10 * 1000);
-    setTimeout(() => {
-      const res = request.post('/post').send({ title: 'test', content: 'test' });
-      expect(res.status).toEqual(201);
-    }, 500);
+    // setTimeout(() => {
+    //   const res = request.post('/post').send({ title: 'test', content: 'test' });
+    //   expect(res.status).toEqual(201);
+    // }, 500);
+
+    const res = await request.post('/post').send({ title: 'test', content: 'test' });
+    expect(res.status).toEqual(201);
 
     // jest.setTimeout(3000);
     // expect(typeof res.body).toEqual('object');
