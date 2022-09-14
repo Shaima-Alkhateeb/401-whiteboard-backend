@@ -4,24 +4,28 @@ const express = require('express');
 const router = express.Router();
 // jest.setTimeout(5000);
 
-const { Post } = require('../models/index');
+const { Post, commentModel } = require('../models/index');
+const { Comment } = require('../models/index'); // with add the include to the findAll
+
 
 //Routes
 router.get('/post', getPost);
 router.get('/post/:id', getOnePost);
+router.get('/getPostWithComment', getPostWithComment);// new routes
 router.post('/post', createPost);
 router.put('/post/:id', updatePost);
 router.delete('/post/:id', deletePost);
 
+
 //call the function
 async function getPost(req, res) {
-  let allPosts = await Post.findAll();
+  let allPosts = await Post.read();
   res.status(200).json(allPosts);
 }
 
 async function getOnePost(req, res) {
   const id = parseInt(req.params.id);
-  let onePost = await Post.findOne({ where: { id: id } });
+  let onePost = await Post.read(id);
   res.status(200).json(onePost);
 }
 
@@ -40,8 +44,13 @@ async function updatePost(req, res) {
 
 async function deletePost(req, res) {
   const id = parseInt(req.params.id);
-  let deletedPost = await Post.destroy({ where: { id: id } });
-  res.status(204).json(deletedPost);
+  await Post.delete(id);
+  res.status(204).json({message: `Ownder has been deleted for owner id: ${id}`});
+}
+
+async function getPostWithComment(req, res) { // new function
+  let allPosts = await Post.readWithComment(commentModel);
+  res.status(200).json(allPosts);
 }
 
 module.exports = router;
