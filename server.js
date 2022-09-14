@@ -5,6 +5,7 @@ const cors = require('cors');
 const app = express();
 
 const postRouter = require('./routes/post.route');
+const commentRouter = require('./routes/comment.route');
 const errorHandler = require('./error-handlers/500');
 const notFound = require('./error-handlers/404');
 
@@ -12,6 +13,7 @@ const notFound = require('./error-handlers/404');
 app.use(cors());
 app.use(express.json());
 app.use(postRouter);
+app.use(commentRouter);
 
 app.get('/', (req, res) => {
   res.status(200).json({
