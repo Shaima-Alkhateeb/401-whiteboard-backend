@@ -26,7 +26,7 @@ describe('Test the returned data for each REST route', () => {
     setTimeout(() => {
       const res = request.post('/post').send({ title: 'test', content: 'test' });
       expect(res.status).toEqual(201);
-    }, 10000);
+    }, 1000);
     // jest.setTimeout(3000);
     // expect(typeof res.body).toEqual('object');
   });
