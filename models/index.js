@@ -7,17 +7,17 @@ const comment = require('./comment.model');
 const Collection = require('../collections/user-comment-routes');
 
 // const POSTGRES_URL = process.env.HEROKU_POSTGRESQL_MAUVE_URL || 'postgresql://shaima:0000@localhost:5432/shaima';
-const POSTGRES_URL = process.env.NODE_ENV === 'test' ? 'sqlite:memory:' : process.env.DATABASE_URL; // npm i sqlite3
+const POSTGRES_URL = process.env.NODE_ENV === 'test' ? 'sqlite:memory:' : process.env.DATABASE_URL ; // npm i sqlite3
 
 // ssl
-const sequelizeOption = {
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
-  }
-};
+// const sequelizeOption = {
+//   dialectOptions: {
+//     ssl: {
+//       require: true,
+//       rejectUnauthorized: false
+//     }
+//   }
+// };
 
 // let sequelizeOption = process.env.NODE_ENV === 'production' ? {
 //   dialectOptions: {
@@ -28,8 +28,8 @@ const sequelizeOption = {
 //   }
 // } : {};
 
-let sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);
-// let sequelize = new Sequelize(POSTGRES_URL);
+// let sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);
+let sequelize = new Sequelize(POSTGRES_URL);
 let postModel = post(sequelize, DataTypes);
 let commentModel = comment(sequelize, DataTypes);
 
