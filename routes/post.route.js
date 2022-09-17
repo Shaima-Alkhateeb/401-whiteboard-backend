@@ -24,7 +24,7 @@ async function getPost(req, res) {
 }
 
 async function getOnePost(req, res) {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   let onePost = await Post.read(id);
   res.status(200).json(onePost);
 }
@@ -36,16 +36,16 @@ async function createPost(req, res) {
 }
 
 async function updatePost(req, res) {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   const obj = req.body;
   let updatedPost = await Post.update(obj, { where: { id: id } });
   res.status(200).json(updatedPost);
 }
 
 async function deletePost(req, res) {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   await Post.delete(id);
-  res.status(204).json({message: `Ownder has been deleted for owner id: ${id}`});
+  res.status(204).json({message: ` deleted the id: ${id}`});
 }
 
 async function getPostWithComment(req, res) { // new function

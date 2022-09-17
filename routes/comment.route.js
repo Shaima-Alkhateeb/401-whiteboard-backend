@@ -2,7 +2,6 @@
 
 const express = require('express');
 const router = express.Router();
-// jest.setTimeout(5000);
 
 const { Comment } = require('../models/index');
 
@@ -20,9 +19,9 @@ async function getComment(req, res) {
 }
 
 async function getOneComment(req, res) {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   let oneComment = await Comment.read(id);
-  res.status(200).json(oneComment);
+  res.status(200).json({oneComment});
 }
 
 async function createComment(req, res) {
@@ -32,14 +31,14 @@ async function createComment(req, res) {
 }
 
 async function updateComment(req, res) {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   const obj = req.body;
   let updatedComment = await Comment.update(obj, { where: { id: id } });
   res.status(200).json(updatedComment);
 }
 
 async function deleteComment(req, res) {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   let deletedComment = await Comment.delete({ where: { id: id } });
   res.status(204).json(deletedComment);
 }
