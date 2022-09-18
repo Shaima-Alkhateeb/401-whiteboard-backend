@@ -10,14 +10,14 @@ const Collection = require('../collections/user-comment-routes');
 const POSTGRES_URL = process.env.NODE_ENV === 'test' ? 'sqlite:memory:' : process.env.DATABASE_URL ; // npm i sqlite3
 
 // ssl
-// const sequelizeOption = {
-//   dialectOptions: {
-//     ssl: {
-//       require: true,
-//       rejectUnauthorized: false
-//     }
-//   }
-// };
+const sequelizeOption = {
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  }
+};
 
 // let sequelizeOption = process.env.NODE_ENV === 'production' ? {
 //   dialectOptions: {
@@ -28,8 +28,8 @@ const POSTGRES_URL = process.env.NODE_ENV === 'test' ? 'sqlite:memory:' : proces
 //   }
 // } : {};
 
-// let sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);
-let sequelize = new Sequelize(POSTGRES_URL);
+let sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);
+// let sequelize = new Sequelize(POSTGRES_URL);
 let postModel = post(sequelize, DataTypes);
 let commentModel = comment(sequelize, DataTypes);
 
