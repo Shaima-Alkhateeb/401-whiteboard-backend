@@ -37,8 +37,9 @@ async function createPost(req, res) {
 
 async function updatePost(req, res) {
   const id = req.params.id;
+  // console.log('id from updatePost', id);
   const obj = req.body;
-  let updatedPost = await Post.update(obj, { where: { id: id } });
+  let updatedPost = await Post.update( id ,obj);
   res.status(200).json(updatedPost);
 }
 

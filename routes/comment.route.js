@@ -33,13 +33,13 @@ async function createComment(req, res) {
 async function updateComment(req, res) {
   const id = req.params.id;
   const obj = req.body;
-  let updatedComment = await Comment.update(obj, { where: { id: id } });
+  let updatedComment = await Comment.update(id, obj);
   res.status(200).json(updatedComment);
 }
 
 async function deleteComment(req, res) {
   const id = req.params.id;
-  let deletedComment = await Comment.delete({ where: { id: id } });
+  let deletedComment = await Comment.delete({ where: { id } });
   res.status(204).json(deletedComment);
 }
 
