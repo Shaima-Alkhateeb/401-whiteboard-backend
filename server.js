@@ -27,7 +27,7 @@ app.use(errorHandler);
 app.use('*', notFound);
 
 function start(port) {
-  app.listen(port || 3001, () => console.log(`server is working yaahooo ^_^ on ${port}`));
+  app.listen(port || 3003, () => console.log(`server is working yaahooo ^_^ on ${port}`));
 }
 
 module.exports = {

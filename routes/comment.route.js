@@ -38,9 +38,11 @@ async function updateComment(req, res) {
 }
 
 async function deleteComment(req, res) {
-  const id = req.params.id;
-  let deletedComment = await Comment.delete({ where: { id } });
-  res.status(204).json(deletedComment);
+  // const id = req.params.id;
+  let id = parseInt(req.params.id);
+  console.log('id from deleteComment', id);
+  await Comment.delete( id );
+  res.status(204).json({message: ` deleted the id: ${id}`});
 }
 
 module.exports = router;

@@ -10,7 +10,7 @@ class UserComment {
       return await this.model.create(obj);
     } catch (e) {
       console.error(`Error during the creation`);
-      console.error(e);
+      // console.error(e);
     }
   }
 
@@ -32,7 +32,7 @@ class UserComment {
       return await dataById.update(obj);
     } catch(e) {
       console.error(`Error while updating data with id: ${id}`);
-      console.error(e);
+      // console.error(e);
     }
   }
 
