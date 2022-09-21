@@ -17,7 +17,7 @@ router.post('/signup', saveUser, signup);
 // router.post('/signin', saveUser, (req, res) => {
 //   res.status(201).send('Sign in');
 // });
-router.post('/signin', bearerAuth, signin);
+router.post('/signin', signin);
 
 router.get('/users', bearerAuth, allUser);
 
