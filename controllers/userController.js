@@ -53,6 +53,7 @@ const signin = async (req, res) => {
 };
 
 const allUser = async (req, res) => {
+  // console.log(req.token);
   const users = await User.findAll();
   res.json(users);
 };
