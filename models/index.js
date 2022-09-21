@@ -54,7 +54,7 @@ module.exports = {
   postModel,
   Comment: commentCollection,
   commentModel,
-  userModel
+  userModel,
 };
 
 
