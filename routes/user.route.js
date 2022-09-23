@@ -9,6 +9,7 @@ const bearerAuth = require('../middlewares/bearer-auth');
 const router = express.Router();
 // const router = require('express').Router();
 
+
 // router.post('/signup', (req, res) => {
 //   res.status(201).send('Sign up');
 // });
