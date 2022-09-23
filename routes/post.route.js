@@ -12,6 +12,7 @@ const { Comment } = require('../models/index'); // with add the include to the f
 router.get('/post', getPost);
 router.get('/post/:id', getOnePost);
 router.get('/getPostWithComment', getPostWithComment);// new routes
+
 router.post('/post', createPost);
 router.put('/post/:id', updatePost);
 router.delete('/post/:id', deletePost);

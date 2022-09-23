@@ -38,8 +38,8 @@ async function updateComment(req, res) {
 }
 
 async function deleteComment(req, res) {
-  const id = req.params.id;
-  let deletedComment = await Comment.delete({ where: { id } });
+  let id = req.params.id;
+  let deletedComment = await Comment.delete(id);
   res.status(204).json(deletedComment);
 }
 
