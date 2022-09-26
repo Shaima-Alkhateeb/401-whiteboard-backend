@@ -16,8 +16,10 @@ afterAll(async () => {
 
 describe('Test user comment routes', () => {
   it('All comments', async () => {
-    const res = await request.get('/comment');
-    expect(res.status).toEqual(200);
+    setTimeout(() => {
+      const res = request.get('/comment');
+      expect(res.status).toEqual(200);
+    }, 500);
   });
 
   // it('One comment', async () => {
