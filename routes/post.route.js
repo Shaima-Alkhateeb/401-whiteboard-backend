@@ -92,7 +92,7 @@ async function deletePost(req, res) {
     await commentModel.destroy({where:{id: comment.id}});
   });
   await Post.delete(id).then( () => {
-    res.status(204).json({message: ` deleted the id: ${id}`});
+    res.status(204).json({message: ` delete the post of the id: ${id}`});
   });
 }
 

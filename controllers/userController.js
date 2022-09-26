@@ -7,11 +7,12 @@ const User = require('../models').userModel;
 
 const signup = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
     const data = {
       username,
       email,
       password: await bcrypt.hash(password, 10),
+      role,
     };
     // console.log(data);
 
@@ -55,6 +56,7 @@ const signin = async (req, res) => {
 
 const allUser = async (req, res) => {
   // console.log(req.token);
+  // console.log(req.user);
   const users = await User.findAll();
   res.json(users);
 };
