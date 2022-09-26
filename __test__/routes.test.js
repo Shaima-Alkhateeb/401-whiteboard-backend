@@ -17,17 +17,18 @@ afterAll(async () => {
 
 describe('Test the returned data for each REST route', () => {
   it('All post', async () => {
-    setTimeout(() => {
-      const res = request.post('/post').send({ title: 'test', content: 'test' });
-      expect(res.status).toEqual(201);
-    }, 500);
+    // setTimeout(() => {
+    const res = await request.get('/post').send({ title: 'test', content: 'test' });
+    console.log('res', res);
+    expect(res.status).toEqual(200);
+    // }, 500);
     // const res = await request.get('/post');
     // expect(res.status).toEqual(200);
   });
 
   it('One post', async () => {
     setTimeout(() => {
-      const res = request.post('/post/2').send({ title: 'test', content: 'test' });
+      const res =  request.get('/post/2');
       expect(res.status).toEqual(201);
     }, 500);
     // const res = await request.get('/post/2');
@@ -53,7 +54,7 @@ describe('Test the returned data for each REST route', () => {
 
   it('Update post', async () => {
     setTimeout(() => {
-      const res = request.post('/post/2').send({ title: 'test', content: 'test' });
+      const res = request.put('/post/2').send({ title: 'test', content: 'test' });
       expect(res.status).toEqual(200);
     }, 500);
     // const res = await request.put('/post/2').send({ title: 'test', content: 'test' });
