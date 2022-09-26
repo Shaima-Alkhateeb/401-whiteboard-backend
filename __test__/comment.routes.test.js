@@ -44,7 +44,7 @@ describe('Test user comment routes', () => {
 
   it('Delete comment', async () => {
     setTimeout(() => {
-      const res = request.post('/comment/2');
+      const res = request.delete('/comment/2');
       expect(res.status).toEqual(204);
     }, 500);
     // const res = await request.delete('/comment/2');

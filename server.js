@@ -21,10 +21,10 @@ app.use(commentRouter);
 app.use(userRouter);
 
 app.get('/', (req, res) => {
-  res.status(200).json({
-    message: 'Testing Home page',
-    code: 200
-  });
+  res.status(200).json('Testing Home page'
+    // message: 'Testing Home page',
+    // code: 200
+  );
 });
 
 
