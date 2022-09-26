@@ -17,24 +17,32 @@ afterAll(async () => {
 
 describe('Test the returned data for each REST route', () => {
   it('All post', async () => {
-    const res = await request.get('/post');
-    expect(res.status).toEqual(200);
+    setTimeout(() => {
+      const res = request.post('/post').send({ title: 'test', content: 'test' });
+      expect(res.status).toEqual(201);
+    }, 500);
+    // const res = await request.get('/post');
+    // expect(res.status).toEqual(200);
   });
 
   it('One post', async () => {
-    const res = await request.get('/post/1');
-    expect(res.status).toEqual(200);
-    // expect(typeof res.body).toEqual('string');//('object');
+    setTimeout(() => {
+      const res = request.post('/post/2').send({ title: 'test', content: 'test' });
+      expect(res.status).toEqual(201);
+    }, 500);
+    // const res = await request.get('/post/2');
+    // expect(res.status).toEqual(200);
+
   });
 
   it('Create post', async () => {
     // jest.setTimeout(10000);
     // jest.useFakeTimers('legacy');
     // jest.setTimeout(10 * 1000);
-    // setTimeout(() => {
-    //   const res = request.post('/post').send({ title: 'test', content: 'test' });
-    //   expect(res.status).toEqual(201);
-    // }, 500);
+    setTimeout(() => {
+      const res = request.post('/post').send({ title: 'test', content: 'test' });
+      expect(res.status).toEqual(201);
+    }, 500);
 
     const res = await request.post('/post').send({ title: 'test', content: 'test' });
     expect(res.status).toEqual(201);
@@ -44,12 +52,12 @@ describe('Test the returned data for each REST route', () => {
   });
 
   it('Update post', async () => {
-    const res = await request.put('/post/1').send({ title: 'test', content: 'test' });
+    const res = await request.put('/post/2').send({ title: 'test', content: 'test' });
     expect(res.status).toEqual(200);
   });
 
   it('Delete post', async () => {
-    const res = await request.delete('/post/1');
+    const res = await request.delete('/post/2');
     expect(res.status).toEqual(204);
   });
 });

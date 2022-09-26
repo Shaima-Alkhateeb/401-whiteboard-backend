@@ -31,7 +31,7 @@ class UserComment {
       const dataById = await this.model.findOne({where: {id}});
       return await dataById.update(obj);
     } catch(e) {
-      console.error(`Error while updating data with id: ${id}`);
+      // console.error(`Error while updating data with id: ${id}`);
       console.error(e);
     }
   }

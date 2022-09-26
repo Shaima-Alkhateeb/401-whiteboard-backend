@@ -5,6 +5,7 @@ const server = require('../server');
 const request = supertest(server.app);
 
 const { db } = require('../models/index');
+// jest.setTimeout(5000);
 
 beforeAll(async () => {
   await db.sync();
@@ -17,21 +18,25 @@ describe('Test user comment routes', () => {
   it('All comments', async () => {
     const res = await request.get('/comment');
     expect(res.status).toEqual(200);
-});
-
-  it('One comment', async () => {
-    const res = await request.get('/comment/20');
-    expect(res.status).toEqual(200);
-    // expect(typeof res.body).toEqual('object');//('object');
   });
 
+  // it('One comment', async () => {
+  //   const res = await request.get('/comment/2/2');
+  //   expect(res.status).toEqual(200);
+  //   // expect(typeof res.body).toEqual('object');//('object');
+  // });
+
   it('Create comment', async () => {
-    const res = await request.post('/comment').send({ title: 'test', content: 'test' });
-    expect(res.status).toEqual(201);
+    setTimeout(() => {
+      // const res = request.post('/post').send({ title: 'test', content: 'test' });
+      // expect(res.status).toEqual(201);
+      const res = request.post('/comment/2/2').send({ post_id: 2,user_id:2, comment: 'test', name:'shaima' });
+      expect(res.status).toEqual(201);
+    }, 500);
   });
 
   it('Update comment', async () => {
-    const res = await request.put('/comment/20').send({ title: 'test', content: 'test' });
+    const res = await request.put('/comment/2');
     expect(res.status).toEqual(200);
   });
 
