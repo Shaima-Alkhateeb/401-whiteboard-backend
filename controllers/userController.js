@@ -13,6 +13,7 @@ const signup = async (req, res) => {
       email,
       password: await bcrypt.hash(password, 10),
     };
+    // console.log(data);
 
     const user = await User.create(data);
 
