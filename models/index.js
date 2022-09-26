@@ -11,41 +11,37 @@ const Collection = require('../collections/user-comment-routes');
 const POSTGRES_URL = process.env.NODE_ENV === 'test' ? 'sqlite:memory:' : process.env.DATABASE_URL ; // npm i sqlite3
 
 // ssl
-// const sequelizeOption = {
-//   dialectOptions: {
-//     ssl: {
-//       require: true,
-//       rejectUnauthorized: false
-//     }
-//   }
-// };
+const sequelizeOption = {
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  }
+};
 
 
-// let sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);
-let sequelize = new Sequelize(POSTGRES_URL);
+let sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);
+// let sequelize = new Sequelize(POSTGRES_URL);
 let postModel = post(sequelize, DataTypes);
 let commentModel = comment(sequelize, DataTypes);
 let userModel = users(sequelize, DataTypes);
 
-// check the connection and if its authenticated
-// sequelize.authenticate().then(() => {
-//   console.log('Connection has been established successfully.');
-// }).catch(err => {
-//   console.error('Unable to connect to the database:', err);
-// });
-
-// const database = {};
-// database.sequelize = sequelize;
-
-// database.users = require('./user.model')(sequelize, DataTypes);
 
 // Relations
 postModel.hasMany(commentModel, {foreignKey: 'post_id', sourceKey: 'id'}); // sourceKey, targetKey = primary key
 commentModel.belongsTo(postModel, {foreignKey: 'post_id', targetKey: 'id'});
 
+userModel.hasMany(commentModel, {foreignKey: 'user_id', sourceKey: 'id'});
+commentModel.belongsTo(userModel, {foreignKey: 'user_id', targetKey: 'id'});
+
+userModel.hasMany(postModel, {foreignKey: 'user_id', sourceKey: 'id'});
+postModel.belongsTo(userModel, {foreignKey: 'user_id', targetKey: 'id'});
+
 // Collection
 const postCollection = new Collection(postModel);
 const commentCollection = new Collection(commentModel);
+const userCollection = new Collection(userModel);
 
 
 module.exports = {
@@ -55,6 +51,7 @@ module.exports = {
   Comment: commentCollection,
   commentModel,
   userModel,
+  userCollection,
 };
 
 

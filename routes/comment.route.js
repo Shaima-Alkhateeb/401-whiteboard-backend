@@ -3,12 +3,13 @@
 const express = require('express');
 const router = express.Router();
 
+const { userModel, commentModel } = require('../models/index');
 const { Comment } = require('../models/index');
 
 //Routes
 router.get('/comment', getComment);
-router.get('/comment/:id', getOneComment);
-router.post('/comment', createComment);
+// router.get('/comment/:post_id/:user_id', getOneComment);
+router.post('/comment/:post_id/:user_id', createComment);
 router.put('/comment/:id', updateComment);
 router.delete('/comment/:id', deleteComment);
 
@@ -18,16 +19,42 @@ async function getComment(req, res) {
   res.status(200).json(allComments);
 }
 
-async function getOneComment(req, res) {
-  const id = req.params.id;
-  let oneComment = await Comment.read(id);
-  res.status(200).json({oneComment});
-}
+// async function getOneComment(req, res) {
+//   const post_id = req.params.post_id;
+//   const user_id = req.params.user_id;
+
+//   let allComments = await commentModel.findAll({where:{post_id: post_id, user_id: user_id}, include: [userModel]});
+//   const response = allComments.map(comment => {
+//     return {
+//       id: comment.id,
+//       comment: comment.comment,
+//       name: comment.name,
+//       post_id: comment.post_id,
+//     };
+//   });
+//   res.status(200).json(response);
+// }
 
 async function createComment(req, res) {
-  let obj = req.body;
-  let newComment = await Comment.create(obj);
-  res.status(201).json(newComment);
+  const post_id = req.params.post_id;
+  const user_id = req.params.user_id;
+
+  let content = await userModel.findOne({where: {id: user_id}});
+  let Data = { comment: req.body.comment, post_id: post_id, user_id: user_id, name: content.name};
+
+  await commentModel.create(Data).then( async () => {
+    await commentModel.findAll({where:{post_id: post_id, user_id: user_id}, include: [userModel]}).then(data => {
+      const response = data.map(comment => {
+        return {
+          id: comment.id,
+          comment: comment.comment,
+          name: comment.name,
+          post_id: comment.post_id,
+        };
+      });
+      res.status(201).json(response);
+    });
+  });
 }
 
 async function updateComment(req, res) {

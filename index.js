@@ -8,3 +8,6 @@ db.sync().then(() => { // connect to the database
   server.start(process.env.PORT || 3003);
 }).catch(console.error);
 
+
+//if I went to update the database
+// db.sync({force: true})
