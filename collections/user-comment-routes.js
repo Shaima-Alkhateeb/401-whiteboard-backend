@@ -31,8 +31,8 @@ class UserComment {
       const dataById = await this.model.findOne({where: {id}});
       return await dataById.update(obj);
     } catch(e) {
-      // console.error(`Error while updating data with id: ${id}`);
-      console.error(e);
+      console.error(`Error while updating data with id: ${id}`);
+      // console.error(e);
     }
   }
 
@@ -45,8 +45,11 @@ class UserComment {
     }
   }
 
-  async readWithComment(Comment) {
+  async readWithComment(Comment, id) {
     try {
+      if (id) {
+        return await this.model.findOne({where: {id}, include: [Comment]});
+      }
       return await this.model.findAll({include: [Comment]});
     } catch(e) {
       console.error(`Error while reading the Comments for model ${this.model.name}`);

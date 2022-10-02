@@ -22,11 +22,11 @@ describe('Test user comment routes', () => {
     }, 500);
   });
 
-  // it('One comment', async () => {
-  //   const res = await request.get('/comment/2/2');
-  //   expect(res.status).toEqual(200);
-  //   // expect(typeof res.body).toEqual('object');//('object');
-  // });
+  it('One comment', async () => {
+    const res = await request.get('/comment/2');
+    expect(res.status).toEqual(200);
+    // expect(typeof res.body).toEqual('object');//('object');
+  });
 
   it('Create comment', async () => {
     setTimeout(() => {
