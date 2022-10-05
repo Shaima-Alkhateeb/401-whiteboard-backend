@@ -10,7 +10,7 @@ class UserComment {
       return await this.model.create(obj);
     } catch (e) {
       console.error(`Error during the creation`);
-      console.error(e);
+      // console.error(e);
     }
   }
 

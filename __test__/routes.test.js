@@ -18,22 +18,22 @@ afterAll(async () => {
 describe('Test the returned data for each REST route', () => {
   it('All post', async () => {
     setTimeout(() => {
-      const res = request.get('/post').send({ title: 'test', content: 'test' });
+      const res = request.get('/post');
       // console.log('res', res);
       expect(res.status).toEqual(200);
-    }, 500);
+    }, 1000);
     // const res = await request.get('/post');
     // expect(res.status).toEqual(200);
   });
 
+
   it('One post', async () => {
     setTimeout(() => {
-      const res =  request.get('/post/2');
+      const res = request.get('/post/1');
       expect(res.status).toEqual(201);
-    }, 500);
+    }, 1000);
     // const res = await request.get('/post/2');
     // expect(res.status).toEqual(200);
-
   });
 
   it('Create post', async () => {
@@ -41,9 +41,15 @@ describe('Test the returned data for each REST route', () => {
     // jest.useFakeTimers('legacy');
     // jest.setTimeout(10 * 1000);
     setTimeout(() => {
-      const res = request.post('/post').send({ title: 'test', content: 'test' });
+      const res = request.post('/post').send({
+        title : 'test',
+        description : 'testing',
+        status : 'tesssssssssss',
+        email : 'test@2.com',
+        user_id: 1
+      });
       expect(res.status).toEqual(201);
-    }, 500);
+    }, 1000);
 
     // const res = await request.post('/post').send({ title: 'test', content: 'test' });
     // expect(res.status).toEqual(201);
@@ -54,19 +60,26 @@ describe('Test the returned data for each REST route', () => {
 
   it('Update post', async () => {
     setTimeout(() => {
-      const res = request.put('/post/2').send({ title: 'test', content: 'test' });
+      const res = request.put('/post/1').send({
+        title : 'test',
+        description : 'testing',
+        status : 'tesssssssssss',
+        email : 'test@2.com',
+        user_id: 1
+      });
       expect(res.status).toEqual(200);
-    }, 500);
+    }, 1000);
     // const res = await request.put('/post/2').send({ title: 'test', content: 'test' });
     // expect(res.status).toEqual(200);
   });
 
   it('Delete post', async () => {
     setTimeout(() => {
-      const res = request.delete('/post/2');
+      const res = request.delete('/post/1');
       expect(res.status).toEqual(200);
-    }, 500);
+    }, 1000);
   });
+
 });
 
 // jest.runOnlyPendingTimers();

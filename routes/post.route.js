@@ -14,7 +14,6 @@ router.get('/post',bearerAuth, acl('read'), getPost);
 // router.get('/post',bearerAuth, acl('read'), getPostWithComment);
 router.get('/post/:id',bearerAuth, acl('read'), getOnePost);
 // router.get('/post/:id',bearerAuth, acl('read'), getOnePostWithComment);
-// router.get('/getPostWithComment', getPostWithComment);// new routes
 
 router.post('/post',bearerAuth, acl('create'), createPost);
 router.put('/post/:id',bearerAuth, acl('update'), updatePost);
@@ -24,50 +23,16 @@ router.delete('/post/:id',bearerAuth, acl('delete'), deletePost);
 
 //call the function
 async function getPost(req, res) {
-  let allPosts = await Post.read();
+  let allPosts = await Post.readWithComment(commentModel);
   res.status(200).json(allPosts);
 }
-// async function getPostWithComment(req, res) {
-//   let allComments = await commentModel.findAll({include: [userModel]});
-//   let allPosts = await postModel.findAll({include: [userModel]});
-
-//   allPosts.forEach(post => {
-//     post.allComments = allComments.filter(comment => {return comment.post_id === post.id;});
-//     return post;
-//   });
-//   const response = allPosts.map(post => {
-//     return {
-//       id: post.id,
-//       title: post.title,
-//       description: post.description,
-//       allComments: post.allComments.map(comment => {
-//         return {
-//           id: comment.id,
-//           comment: comment.comment,
-//           name: comment.name,
-//           post_id: comment.post_id,
-//         };
-//       }),
-//     };
-//   });
-//   res.status(200).json(response);
-// }
 
 async function getOnePost(req, res) {
   const id = req.params.id;
-  let onePost = await Post.read(id);
+  let onePost = await Post.readWithComment(commentModel,id);
   res.status(200).json(onePost);
 }
 
-// async function getOnePostWithComment(req, res) {
-//   const id = req.params.id;
-//   let allComments = await commentModel.findAll({where:{post_id: id }, include: [userModel]});
-
-//   let post = await postModel.findOne({where:{id: id }, include: [userModel]});
-
-//   post.allComments = allComments;
-//   res.status(200).json(post);
-// }
 
 async function createPost(req, res) {
   let obj = req.body;
