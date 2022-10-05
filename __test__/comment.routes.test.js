@@ -16,39 +16,55 @@ afterAll(async () => {
 
 describe('Test user comment routes', () => {
   it('All comments', async () => {
-    setTimeout(() => {
-      const res = request.get('/comment');
-      expect(res.status).toEqual(200);
-    }, 500);
-  });
+    // setTimeout(() => {
+    const res = await request.get('/comment');
+    expect(res.status).toEqual(200);
+    // }, 1000);
+  }, 1000);
 
   it('One comment', async () => {
-    const res = await request.get('/comment/2');
+    const res = await request.get('/comment/1');
     expect(res.status).toEqual(200);
     // expect(typeof res.body).toEqual('object');//('object');
+  }, 1000);
+
+  it('Create new comment', async () => {
+    setTimeout(() => {
+      const res = request.post('/comment').send({
+        comment: 'test',
+        post_id: 1,
+        name: 'Shaima',
+        user_id: 1
+      });
+      expect(res.status).toEqual(201);
+    }, 1000);
   });
 
-  it('Create comment', async () => {
-    setTimeout(() => {
-      const res = request.post('/comment/2/2').send({ post_id: 2,user_id:2, comment: 'test', name:'shaima' });
-      expect(res.status).toEqual(201);
-    }, 500);
-  });
+
+  // it('Create comment', async () => {
+  //   // setTimeout(() => {
+  //     const res = await request.post('/comment/2/2');
+  //     expect(res.status).toEqual(201);
+  //   // }, 1000);
+  // }, 1000);
 
   it('Update comment', async () => {
     setTimeout(() => {
-      const res = request.put('/comment/2');
+      const res = request.put('/comment/1').send({ comment: 'test',post_id: 1, name: 'Shaima',user_id: 1 });
       expect(res.status).toEqual(200);
-    }, 500);
+    // }, 1000);
+    }, 1000);
   });
 
   it('Delete comment', async () => {
     setTimeout(() => {
-      const res = request.delete('/comment/2');
+      const res = request.delete('/comment/1');
       expect(res.status).toEqual(204);
-    }, 500);
+    // }, 1000);
     // const res = await request.delete('/comment/2');
     // expect(res.status).toEqual(204);
+    }, 1000);
   });
+
 
 });

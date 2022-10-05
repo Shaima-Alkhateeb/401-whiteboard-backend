@@ -8,8 +8,9 @@ const { Comment } = require('../models/index');
 
 //Routes
 router.get('/comment', getComment);
-router.get('/comment/:post_id', getOneComment);
-router.post('/comment/:post_id/:user_id', createComment);
+router.get('/comment/:id', getOneComment);
+router.post('/comment', createNewComment);
+router.get('/comment/:post_id/:user_id', createComment);
 router.put('/comment/:id', updateComment);
 router.delete('/comment/:id', deleteComment);
 
@@ -25,31 +26,22 @@ async function getOneComment(req, res) {
   res.status(200).json(oneComment);
 }
 
-async function createComment(req, res) {
-  const obj = req.body.comment;
-  const post_id = req.params.post_id;
-  const user_id = req.params.user_id;
-
-  let newComment = await Comment.create(obj, post_id, user_id);
+async function createNewComment(req, res) {
+  let obj = req.body;
+  let newComment = await Comment.create(obj);
   res.status(201).json(newComment);
+}
 
+async function createComment(req, res) {
+  // const obj = req.body.comment;
+  console.log('req.body', req.params.post_id);
+  // const post_id = req.body.post_id;
+  const user_id = req.body.user_id;
+  let comment = await Comment.read( user_id);
 
-  // let content = await userModel.findOne({where: {id: user_id}});
-  // let Data = { comment: req.body.comment, post_id: post_id, user_id: user_id, name: content.name};
+  // let newComment = await Comment.create(obj, post_id, user_id);
+  res.status(201).json(comment);
 
-  // await commentModel.create(Data).then( async () => {
-  //   await commentModel.findAll({where:{post_id: post_id, user_id: user_id}, include: [userModel]}).then(data => {
-  //     const response = data.map(comment => {
-  //       return {
-  //         id: comment.id,
-  //         comment: comment.comment,
-  //         name: comment.name,
-  //         post_id: comment.post_id,
-  //       };
-  //     });
-  //     res.status(201).json(response);
-  //   });
-  // });
 }
 
 async function updateComment(req, res) {
