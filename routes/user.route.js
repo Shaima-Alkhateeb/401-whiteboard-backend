@@ -2,7 +2,7 @@
 
 const express = require('express');
 const { signup, allUser, signin } = require('../controllers/userController');
-const { saveUser } = require('../middlewares/userAuth');
+const saveUser  = require('../middlewares/userAuth');
 const bearerAuth = require('../middlewares/bearer-auth');
 
 
@@ -14,7 +14,10 @@ const router = express.Router();
 // router.post('/signup', (req, res) => {
 //   res.status(201).send('Sign up');
 // });
-router.post('/signup', saveUser, signup);
+// router.post('/signup', saveUser, signup);
+router.post('/signup', (req, res) => {
+  saveUser, signup;
+});
 
 // router.post('/signin', saveUser, (req, res) => {
 //   res.status(201).send('Sign in');

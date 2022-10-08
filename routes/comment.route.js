@@ -33,14 +33,15 @@ async function createNewComment(req, res) {
 }
 
 async function createComment(req, res) {
-  // const obj = req.body.comment;
-  console.log('req.body', req.params.post_id);
-  // const post_id = req.body.post_id;
-  const user_id = req.body.user_id;
-  let comment = await Comment.read( user_id);
+  const obj = req.body.comment;
 
-  // let newComment = await Comment.create(obj, post_id, user_id);
-  res.status(201).json(comment);
+  // console.log('req.body', req.params.post_id);
+  const post_id = req.params.post_id;
+  const user_id = req.params.user_id;
+  // let comment = await Comment.read( user_id);
+
+  let newComment = await Comment.create(obj, post_id, user_id);
+  res.status(201).json(newComment);
 
 }
 
