@@ -17,7 +17,7 @@ class UserComment {
   async read(id) {
     try {
       if(id) {
-        return await this.model.findOne({where: {id}});
+        return await this.model.findOne({where: {id: id}});
       } else {
         return await this.model.findAll();
       }
@@ -28,7 +28,7 @@ class UserComment {
 
   async update(id, obj) {
     try {
-      const dataById = await this.model.findOne({where: {id}});
+      const dataById = await this.model.findOne({where: {id: id}});
       return await dataById.update(obj);
     } catch(e) {
       console.error(`Error while updating data with id: ${id}`);
@@ -38,7 +38,7 @@ class UserComment {
 
   async delete(id) {
     try {
-      return await this.model.destroy({where: {id}});
+      return await this.model.destroy({where: {id: id}});
     } catch(e) {
       // console.log(id);
       console.error(`Error while deleting the data with id: ${id}`);
@@ -48,11 +48,22 @@ class UserComment {
   async readWithComment(Comment, id) {
     try {
       if (id) {
-        return await this.model.findOne({where: {id}, include: [Comment]});
+        return await this.model.findOne({where: {id: id}, include: Comment});
       }
-      return await this.model.findAll({include: [Comment]});
+      return await this.model.findAll({include: Comment});
     } catch(e) {
-      console.error(`Error while reading the Comments for model ${this.model.name}`);
+      console.error(`Error while reading the Comments for model `);
+    }
+  }
+
+  async readWithCommentAndUser(Comment, id) {
+    try {
+      // if (id) {
+      //   return await this.model.findOne({where: {id: id}, include: [Comment, User]});
+      // }
+      return await this.model.findAll({ where: {user_id: id} ,include: [Comment]});
+    } catch(e) {
+      console.error(`Error while reading the Comments for the user`);
     }
   }
 }

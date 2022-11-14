@@ -1,6 +1,6 @@
 'use strict';
 
-const { User } = require('../models');
+const User = require('../models').userModel;
 
 module.exports = async (req, res, next) => {
   console.log('Inside the middleware');
@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
   const token = req.headers.authorization.split(' ').pop();
   try {
     console.log(token); //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNoYWltYSIsImlhdCI6MTY2Mzc2MDUwMX0.HRu4iU-Ngajl752vSo6DxwW7OhlAXM5WKzgUwnv9vPw
-    const validUser = User.authenticateToken(token);
+    const validUser = await User.authenticateToken(token);
     // console.log(validUser); // { username: 'shaima', iat: 1663760501 } //Executing (default): SELECT "id", "username", "email", "password", "createdAt", "updatedAt" FROM "Users" AS "User";
 
     const userInfo = await User.findOne({
@@ -29,7 +29,8 @@ module.exports = async (req, res, next) => {
     }
     // console.log(userInfo)
   } catch (e) {
-    next(e);
+    // next(e);
+    console.log(e);
   }
   //   }
 };

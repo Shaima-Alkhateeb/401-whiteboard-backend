@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const base64 = require('base-64');
 
 const User = require('../models').userModel;
+const Post = require('../models').postModel;
+const Comment = require('../models').commentModel;
 
 const signup = async (req, res) => {
   try {
@@ -18,8 +20,19 @@ const signup = async (req, res) => {
 
     const user = await User.create(data);
 
+    const output = {
+      User: {
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        id: user.id,
+        capabilities: user.capabilities,
+      },
+      token: user.token,
+    };
+
     if (user) {
-      res.status(200).json(user);
+      res.status(200).json(output);
     }
   } catch (e) {
     console.log(e);
@@ -45,7 +58,17 @@ const signin = async (req, res) => {
     const isSame = await bcrypt.compare(password, user.password);
 
     if (isSame) {
-      return res.status(200).json(user);
+      const output = {
+        User: {
+          username: user.username,
+          email: user.email,
+          role: user.role,
+          id: user.id,
+          capabilities: user.capabilities,
+        },
+        token: user.token,
+      };
+      return res.status(200).json(output);
     } else {
       return res.status(401).send('You are not authorized');
     }
@@ -57,12 +80,35 @@ const signin = async (req, res) => {
 const allUser = async (req, res) => {
   // console.log(req.token);
   // console.log(req.user);
-  const users = await User.findAll();
-  res.json(users);
+  const users = await User.findAll({ include: [Post, Comment] });
+
+  const output = users.map((user) => {
+    return {
+      User: {
+        userName: user.userName,
+        email: user.email,
+        id: user.id,
+        role: user.role,
+        capabilities: user.capabilities,
+        Posts: user.Posts,
+        Comments: user.Comments,
+      },
+    };
+  });
+  res.json(output);
+};
+
+const oneUser = async (req, res) => {
+  const user = await User.findOne({
+    where: { id: req.params.id },
+    include: [Post, Comment],
+  });
+  res.status(200).json(user);
 };
 
 module.exports = {
   signup,
   allUser,
-  signin
+  signin,
+  oneUser
 };
