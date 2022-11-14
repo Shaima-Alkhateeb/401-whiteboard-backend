@@ -6,9 +6,10 @@ const app = express();
 
 const postRouter = require('./routes/post.route');
 const commentRouter = require('./routes/comment.route');
+const userRouter = require('./routes/user.route');
 const errorHandler = require('./error-handlers/500');
 const notFound = require('./error-handlers/404');
-const userRouter = require('./routes/user.route');
+
 
 require('dotenv').config();
 
